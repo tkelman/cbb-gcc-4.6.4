@@ -1,5 +1,11 @@
 ## Process this file with automake to produce Makefile.in.
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 AUTOMAKE_OPTIONS = foreign subdir-objects
 
 ACLOCAL_AMFLAGS = -I . -I .. -I ../config -I libltdl
@@ -332,7 +338,7 @@ lib_gnu_awt_xlib_la_version_dep = $(version_dep)
 libgcj_bc_la_version_dep = $(version_dep)
 endif
 
-LTLDFLAGS = $(shell $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
+LTLDFLAGS = $(shell $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) $(cbb_ldflags_for_target)
 GCJLINK = $(LIBTOOL) --tag=GCJ $(LIBTOOLFLAGS) --mode=link $(GCJ) -L$(here) \
 	  $(JC1FLAGS) $(LTLDFLAGS) -o $@
 GCJ_FOR_ECJX = @GCJ_FOR_ECJX@

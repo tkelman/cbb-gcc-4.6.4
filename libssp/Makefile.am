@@ -4,6 +4,12 @@
 ## Free Software Foundation, Inc.
 ##
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 AUTOMAKE_OPTIONS = 1.9.5 foreign
 ACLOCAL_AMFLAGS = -I .. -I ../config
 MAINT_CHARSET = latin1

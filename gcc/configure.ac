@@ -2465,7 +2465,7 @@ gcc_GAS_CHECK_FEATURE([cfi sections directive],
   win32 | pe | cygwin* | mingw32* | uwin*)
     # Need to check that we generated the correct relocation for the
     # .debug_frame section.  This was fixed for binutils 2.21.
-    gcc_cv_as_cfi_sections_directive=no
+    gcc_cv_as_cfi_sections_directive=yes
     if test "x$gcc_cv_objdump" != x; then
      if $gcc_cv_objdump -j .debug_frame -r conftest.o 2>/dev/null | \
 	grep secrel > /dev/null; then
@@ -4362,7 +4362,7 @@ fi
 # Test for stack protector support in target C library.
 AC_CACHE_CHECK(__stack_chk_fail in target C library,
       gcc_cv_libc_provides_ssp,
-      [gcc_cv_libc_provides_ssp=no
+      [gcc_cv_libc_provides_ssp=yes
     case "$target" in
        *-*-linux* | *-*-kfreebsd*-gnu | *-*-knetbsd*-gnu)
       [# glibc 2.4 and later provides __stack_chk_fail and
@@ -4430,7 +4430,7 @@ if test x$gcc_cv_target_ldbl128 = xyes; then
 fi
 
 AC_MSG_CHECKING(dl_iterate_phdr in target C library)
-gcc_cv_target_dl_iterate_phdr=unknown
+gcc_cv_target_dl_iterate_phdr=yes
 case "$target" in
   *-*-solaris2*)
     # <link.h> needs both a dl_iterate_phdr declaration and support for

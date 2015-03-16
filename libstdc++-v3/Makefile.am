@@ -21,6 +21,12 @@
 ## with this library; see the file COPYING3.  If not see
 ## <http://www.gnu.org/licenses/>.
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 include $(top_srcdir)/fragment.am
 
 if GLIBCXX_HOSTED

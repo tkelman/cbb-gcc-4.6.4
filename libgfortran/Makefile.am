@@ -1,6 +1,11 @@
 ## Process this file with automake to produce Makefile.in
 
 
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 ACLOCAL_AMFLAGS = -I .. -I ../config
 
 ## May be used by toolexeclibdir.
@@ -31,7 +36,7 @@ version_dep =
 endif
 
 LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) \
-	    $(lt_host_flags)
+	    $(lt_host_flags) $(cbb_ldflags_for_target)
 
 toolexeclib_LTLIBRARIES = libgfortran.la
 toolexeclib_DATA = libgfortran.spec

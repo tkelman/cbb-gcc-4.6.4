@@ -458,3 +458,10 @@ AC_CONFIG_COMMANDS([generate-headers],
 
 dnl And this actually makes things happen:
 AC_OUTPUT
+
+
+# Compiler Building Blocks variables
+sed -i  -e 's#@cbb_xgcc_for_specs@#'"$cbb_xgcc_for_specs"'#g' \
+	-e 's#@cbb_ldflags_for_target@#'"$cbb_ldflags_for_target"'#g' \
+	-e 's#@cbb_sysroot_for_libgcc@#'"$cbb_sysroot_for_libgcc"'#g' \
+		Makefile || exit 2

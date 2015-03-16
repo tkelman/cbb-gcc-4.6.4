@@ -125,7 +125,7 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp =
 am__depfiles_maybe =
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
+	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) $(script_xgcc_path_flags)
 CXXLD = $(CXX)
 SOURCES = $(libstdc___la_SOURCES)
 ETAGS = etags
@@ -509,10 +509,10 @@ AM_CXXFLAGS = \
 # attempt to infer which configuration to use
 LTCXXCOMPILE = $(LIBTOOL) --tag CXX \
 	       $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile \
-	       $(CXX) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	       $(AM_CXXFLAGS) $(CXXFLAGS)
+	       $(CXX) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) -D_GNU_SOURCE=1 \
+	       $(AM_CXXFLAGS) $(CXXFLAGS) $(script_xgcc_path_flags)
 
-LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
+LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) $(cbb_ldflags_for_target)
 
 # 3) We'd have a problem when building the shared libstdc++ object if
 # the rules automake generates would be used.  We cannot allow g++ to

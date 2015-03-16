@@ -22,6 +22,12 @@
 #Makefile.in files.  Some of this stuff may be unnecessary and
 #worthless.
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 SHELL = @SHELL@
 MAKEOVERRIDES=
 
@@ -207,11 +213,16 @@ OBJS_GC = \
 ## The rules to build
 ##
 
+# cbb: allow using a target-specific compiler
+ifeq ($(GCC_FOR_TARGET),)
+GCC_FOR_TARGET = $(CC)
+endif
+
 # Flags to pass to a recursive make.
 FLAGS_TO_PASS = \
 	"AR=$(AR)" \
 	"AR_FLAGS=$(AR_FLAGS)" \
-	"CC=$(CC)" \
+	"CC=$(GCC_FOR_TARGET)" \
 	"CFLAGS=$(CFLAGS)" \
 	"DESTDIR=$(DESTDIR)" \
 	"LIBCFLAGS=$(LIBCFLAGS)" \
@@ -321,7 +332,7 @@ install-html:
 install-pdf:
 install-info:
 
-LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
+LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) $(cbb_ldflags_for_target)
 
 libobjc$(libsuffix).la: $(OBJS)
 	$(LIBTOOL_LINK) $(CC) -o $@ $(OBJS) \

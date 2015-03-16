@@ -13,6 +13,12 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 @SET_MAKE@
 
 
@@ -985,7 +991,7 @@ GCJ_WITH_FLAGS = $(GCJ) --encoding=UTF-8 -Wno-deprecated
 @ANONVERSCRIPT_FALSE@libgcj_bc_la_version_dep = $(version_dep)
 @ANONVERSCRIPT_GNU_TRUE@@ANONVERSCRIPT_TRUE@libgcj_bc_la_version_dep = $(version_dep)
 @ANONVERSCRIPT_SUN_TRUE@@ANONVERSCRIPT_TRUE@libgcj_bc_la_version_dep = libgcj_bc.ver-sun
-LTLDFLAGS = $(shell $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
+LTLDFLAGS = $(shell $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) $(cbb_ldflags_for_target)
 GCJLINK = $(LIBTOOL) --tag=GCJ $(LIBTOOLFLAGS) --mode=link $(GCJ) -L$(here) \
 	  $(JC1FLAGS) $(LTLDFLAGS) -o $@
 

@@ -433,7 +433,7 @@ LTCXXCOMPILE = $(LIBTOOL) --tag CXX \
 	       $(CXX) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
 	       $(AM_CXXFLAGS) $(CXXFLAGS)
 
-LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
+LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) $(cbb_ldflags_for_target)
 
 # 3) We'd have a problem when building the shared libstdc++ object if
 # the rules automake generates would be used.  We cannot allow g++ to

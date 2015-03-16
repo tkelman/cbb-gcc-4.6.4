@@ -13,6 +13,12 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 @SET_MAKE@
 
 
@@ -480,7 +486,7 @@ gcc_version := $(shell cat $(top_srcdir)/../gcc/BASE-VER)
 @LIBGFOR_USE_SYMVER_GNU_TRUE@@LIBGFOR_USE_SYMVER_TRUE@version_dep = $(srcdir)/gfortran.map
 @LIBGFOR_USE_SYMVER_SUN_TRUE@@LIBGFOR_USE_SYMVER_TRUE@version_dep = gfortran.map-sun
 LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) \
-	    $(lt_host_flags)
+	    $(lt_host_flags) $(cbb_ldflags_for_target)
 
 toolexeclib_LTLIBRARIES = libgfortran.la
 toolexeclib_DATA = libgfortran.spec

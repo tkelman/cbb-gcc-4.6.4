@@ -22101,7 +22101,7 @@ $as_echo_n "checking assembler for cfi sections directive... " >&6; }
 if test "${gcc_cv_as_cfi_sections_directive+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
-  gcc_cv_as_cfi_sections_directive=no
+  gcc_cv_as_cfi_sections_directive=yes
   if test x$gcc_cv_as != x; then
     echo '	.text
 	.cfi_sections .debug_frame, .eh_frame
@@ -23609,7 +23609,7 @@ $as_echo_n "checking assembler for .secrel32 relocs... " >&6; }
 if test "${gcc_cv_as_ix86_pe_secrel32+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
-  gcc_cv_as_ix86_pe_secrel32=no
+  gcc_cv_as_ix86_pe_secrel32=yes
     if test $in_tree_gas = yes; then
     if test $gcc_cv_gas_vers -ge `expr \( \( 2 \* 1000 \) + 15 \) \* 1000 + 91`
   then gcc_cv_as_ix86_pe_secrel32=yes
@@ -25774,7 +25774,7 @@ $as_echo_n "checking __stack_chk_fail in target C library... " >&6; }
 if test "${gcc_cv_libc_provides_ssp+set}" = set; then :
   $as_echo_n "(cached) " >&6
 else
-  gcc_cv_libc_provides_ssp=no
+  gcc_cv_libc_provides_ssp=yes
     case "$target" in
        *-*-linux* | *-*-kfreebsd*-gnu | *-*-knetbsd*-gnu)
       # glibc 2.4 and later provides __stack_chk_fail and
@@ -25857,7 +25857,7 @@ fi
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking dl_iterate_phdr in target C library" >&5
 $as_echo_n "checking dl_iterate_phdr in target C library... " >&6; }
-gcc_cv_target_dl_iterate_phdr=unknown
+if [ "$gcc_cv_target_dl_iterate_phdr"x = x ]; then gcc_cv_target_dl_iterate_phdr=yes; fi
 case "$target" in
   *-*-solaris2*)
     # <link.h> needs both a dl_iterate_phdr declaration and support for
@@ -27791,4 +27791,10 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
+
+# Compiler Building Blocks variables
+sed -i  -e 's#@cbb_xgcc_for_specs@#'"$cbb_xgcc_for_specs"'#g' \
+	-e 's#@cbb_ldflags_for_target@#'"$cbb_ldflags_for_target"'#g' \
+	-e 's#@cbb_sysroot_for_libgcc@#'"$cbb_sysroot_for_libgcc"'#g' \
+		Makefile || exit 2
 

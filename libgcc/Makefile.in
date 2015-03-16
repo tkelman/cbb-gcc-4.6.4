@@ -172,7 +172,14 @@ RANLIB_FOR_TARGET = $(RANLIB)
 STRIP = @STRIP@
 STRIP_FOR_TARGET = $(STRIP)
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 # Directory in which the compiler finds libraries etc.
+version := $(shell $(cbb_xgcc_for_specs) -dumpversion)
 libsubdir = $(libdir)/gcc/$(host_noncanonical)/$(version)
 # Used to install the shared libgcc.
 slibdir = @slibdir@
@@ -201,7 +208,7 @@ export slibdir
 export toolexecdir
 export toolexeclibdir
 
-version := $(shell $(CC) -dumpversion)
+
 
 ifeq ($(decimal_float),yes)
 ifeq ($(enable_decimal_float),bid)
@@ -773,7 +780,7 @@ libgcc_s$(SHLIB_EXT): libunwind$(SHLIB_EXT)
 endif
 
 ifeq ($(enable_shared),yes)
-all: libgcc_eh.a libgcc_s$(SHLIB_EXT)
+all: libgcc_eh.a libgcc_s$(SHLIB_EXT) $(libgcc-crt-objects)
 ifneq ($(LIBUNWIND),)
 all: libunwind$(SHLIB_EXT)
 endif

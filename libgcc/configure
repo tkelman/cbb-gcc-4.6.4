@@ -5116,3 +5116,10 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
+
+# Compiler Building Blocks variables
+sed -i  -e 's#@cbb_xgcc_for_specs@#'"$cbb_xgcc_for_specs"'#g' \
+	-e 's#@cbb_ldflags_for_target@#'"$cbb_ldflags_for_target"'#g' \
+	-e 's#@cbb_sysroot_for_libgcc@#'"$cbb_sysroot_for_libgcc"'#g' \
+		Makefile || exit 2
+

@@ -3479,3 +3479,21 @@ AC_CONFIG_FILES([Makefile],
    extrasub_host="$extrasub_host"
    extrasub_target="$extrasub_target"])
 AC_OUTPUT
+
+
+# Compiler Building Blocks top-level-only variables
+sed -i  -e 's#@cbb_cflags_for_stage1@#'"$cbb_cflags_for_stage1"'#g' \
+	-e 's#@cbb_cflags_for_stage2@#'"$cbb_cflags_for_stage2"'#g' \
+	-e 's#@cbb_cflags_for_stage3@#'"$cbb_cflags_for_stage3"'#g' \
+	-e 's#@cbb_cflags_for_stage4@#'"$cbb_cflags_for_stage4"'#g' \
+	-e 's#@cbb_cflags_for_stageprofile@#'"$cbb_cflags_for_stageprofile"'#g' \
+	-e 's#@cbb_cflags_for_stagefeedback@#'"$cbb_cflags_for_stagefeedback"'#g' \
+		Makefile || exit 2
+
+
+# Compiler Building Blocks variables
+sed -i  -e 's#@cbb_xgcc_for_specs@#'"$cbb_xgcc_for_specs"'#g' \
+	-e 's#@cbb_ldflags_for_target@#'"$cbb_ldflags_for_target"'#g' \
+	-e 's#@cbb_sysroot_for_libgcc@#'"$cbb_sysroot_for_libgcc"'#g' \
+	-e 's#@cbb_cflags_for_bootstrap@#'"$cbb_cflags_for_bootstrap"'#g' \
+		Makefile || exit 2

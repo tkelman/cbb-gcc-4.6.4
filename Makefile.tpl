@@ -93,6 +93,21 @@ MAINT = @MAINT@
 MAINTAINER_MODE_FALSE = @MAINTAINER_MODE_FALSE@
 MAINTAINER_MODE_TRUE = @MAINTAINER_MODE_TRUE@
 
+# ----------------------------------
+# Compiler Building Blocks variables
+# ----------------------------------
+cbb_xgcc_for_specs     = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+cbb_sysroot_for_libgcc = @cbb_sysroot_for_libgcc@
+
+cbb_cflags_for_stage1  = @cbb_cflags_for_stage1@
+cbb_cflags_for_stage2  = @cbb_cflags_for_stage2@
+cbb_cflags_for_stage3  = @cbb_cflags_for_stage3@
+cbb_cflags_for_stage4  = @cbb_cflags_for_stage4@
+
+cbb_cflags_for_stageprofile  = @cbb_cflags_for_stageprofile@
+cbb_cflags_for_stagefeedback = @cbb_cflags_for_stagefeedback@
+
 # -------------------------------------------------
 # Miscellaneous non-standard autoconf-set variables
 # -------------------------------------------------
@@ -145,7 +160,10 @@ BASE_EXPORTS = \
 	M4="$(M4)"; export M4; \
 	SED="$(SED)"; export SED; \
 	AWK="$(AWK)"; export AWK; \
-	MAKEINFO="$(MAKEINFO)"; export MAKEINFO;
+	MAKEINFO="$(MAKEINFO)"; export MAKEINFO; \
+	cbb_xgcc_for_specs="$(cbb_xgcc_for_specs)"; export cbb_xgcc_for_specs; \
+	cbb_ldflags_for_target="$(cbb_ldflags_for_target)" ; export cbb_ldflags_for_target; \
+	cbb_sysroot_for_libgcc="$(cbb_sysroot_for_libgcc)" ; export cbb_sysroot_for_libgcc;
 
 # This is the list of variables to export in the environment when
 # configuring subdirectories for the build system.
@@ -421,7 +439,7 @@ STAGE_CONFIGURE_FLAGS=@stage2_werror_flag@
 
 [+ FOR bootstrap-stage +]
 # Defaults for stage [+id+]; some are overridden below.
-STAGE[+id+]_CFLAGS = $(STAGE_CFLAGS)
+STAGE[+id+]_CFLAGS = $(STAGE_CFLAGS) $(cbb_cflags_for_stage[+id+])
 STAGE[+id+]_CXXFLAGS = $(CXXFLAGS)
 @if target-libstdc++-v3-bootstrap
 # Override the above if we're bootstrapping C++.
@@ -437,7 +455,7 @@ STAGE[+id+]_CONFIGURE_FLAGS = $(STAGE_CONFIGURE_FLAGS)
 # MAKEINFO and MAKEINFOFLAGS are explicitly passed here to make them
 # overrideable (for a bootstrap build stage1 also builds gcc.info).
 
-STAGE1_CFLAGS = @stage1_cflags@
+STAGE1_CFLAGS = @stage1_cflags@ $(cbb_cflags_for_stage1)
 STAGE1_CHECKING = @stage1_checking@
 STAGE1_LANGUAGES = @stage1_languages@
 # * We force-disable intermodule optimizations, even if

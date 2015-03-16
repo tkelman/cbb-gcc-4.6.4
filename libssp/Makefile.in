@@ -13,6 +13,12 @@
 # even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 # PARTICULAR PURPOSE.
 
+
+# Compiler Building Blocks variables
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+cbb_ldflags_for_target = @cbb_ldflags_for_target@
+
+
 @SET_MAKE@
 
 
@@ -92,7 +98,7 @@ am_libssp_la_OBJECTS = ssp.lo gets-chk.lo memcpy-chk.lo memmove-chk.lo \
 libssp_la_OBJECTS = $(am_libssp_la_OBJECTS)
 libssp_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(libssp_la_LDFLAGS) $(LDFLAGS) -o $@
+	$(libssp_la_LDFLAGS) $(LDFLAGS) $(cbb_ldflags_for_target) -o $@
 am_libssp_nonshared_la_OBJECTS = libssp_nonshared_la-ssp-local.lo
 libssp_nonshared_la_OBJECTS = $(am_libssp_nonshared_la_OBJECTS)
 libssp_nonshared_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -111,7 +117,7 @@ LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
-	$(LDFLAGS) -o $@
+	$(LDFLAGS) $(cbb_ldflags_for_target) -o $@
 SOURCES = $(libssp_la_SOURCES) $(libssp_nonshared_la_SOURCES)
 MULTISRCTOP = 
 MULTIBUILDTOP = 

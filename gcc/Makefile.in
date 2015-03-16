@@ -373,6 +373,22 @@ UNWIND_H = $(srcdir)/unwind-generic.h
 # Don't use this as a dependency--use $(GCC_PASSES).
 GCC_FOR_TARGET = $(STAGE_CC_WRAPPER) ./xgcc -B./ -B$(build_tooldir)/bin/ -isystem $(build_tooldir)/include -isystem $(build_tooldir)/sys-include -L$(objdir)/../ld
 
+# cbb: cbb_xgcc_for_specs (aka the key to paradise)
+# if the CC compiler or its flags involve a custom specs file,
+# then that specs file will become part of STAGE_CC_WRAPPER,
+# which will then interfere with the bootstrapping process.
+# we sidestep the problem by using a designated variable for
+# the -dumpspecs step. this variable (cbb_xgcc_for_specs)
+# is optional; to use it, set it prior to calling the
+# top-level configure.
+
+cbb_xgcc_for_specs = @cbb_xgcc_for_specs@
+
+ifeq ($(cbb_xgcc_for_specs),)
+cbb_xgcc_for_specs = $(STAGE_CC_WRAPPER)
+endif
+
+
 # This is used instead of ALL_CFLAGS when compiling with GCC_FOR_TARGET.
 # It specifies -B./.
 # It also specifies -isystem ./include to find, e.g., stddef.h.
@@ -1083,7 +1099,7 @@ BUILD_ERRORS = build/errors.o
 # libintl.h will be found in ../intl if we are using the included libintl.
 INCLUDES = -I. -I$(@D) -I$(srcdir) -I$(srcdir)/$(@D) \
 	   -I$(srcdir)/../include @INCINTL@ \
-	   $(CPPINC) $(GMPINC) $(DECNUMINC) \
+	   $(CPPINC) $(DECNUMINC) \
 	   $(PPLINC) $(CLOOGINC)
 
 .c.o:
@@ -1843,7 +1859,7 @@ cpp$(exeext): $(GCC_OBJS) cppspec.o version.o intl.o prefix.o \
 
 # Dump a specs file to make -B./ read these specs over installed ones.
 $(SPECS): xgcc$(exeext)
-	$(GCC_FOR_TARGET) -dumpspecs > tmp-specs
+	$(cbb_xgcc_for_specs) -dumpspecs > tmp-specs
 	mv tmp-specs $(SPECS)
 
 # We do want to create an executable named `xgcc', so we can use it to

@@ -1651,7 +1651,7 @@ libgo_la_LIBADD = \
 libgobegin_a_SOURCES = \
 	runtime/go-main.c
 
-LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS))
+LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) $(LDFLAGS_FOR_TARGET)
 AM_GOCFLAGS = $(STRINGOPS_FLAG)
 GOCOMPILE = $(GOC) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_GOCFLAGS) $(GOCFLAGS)
 LTGOCOMPILE = $(LIBTOOL) --tag GO --mode=compile $(GOC) $(INCLUDES) \
