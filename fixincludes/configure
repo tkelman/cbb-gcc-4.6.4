@@ -1,0 +1,7 @@
+# copy template makefile
+src_dir=$(dirname $0)
+cp $src_dir/Makefile.in Makefile
+
+# update makefile
+sed -i -e 's#@src_dir@#'$src_dir'#g' Makefile
+

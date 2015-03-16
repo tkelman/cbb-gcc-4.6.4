@@ -1,0 +1,15 @@
+# a no-op fixincludes make recipe
+# generated from Makefile.in and configure
+
+src_dir = @src_dir@
+
+all: fixincl fixinc.sh
+
+install:
+
+fixincl: $(src_dir)/fixincl.c
+	$(CC) -o fixincl $(src_dir)/fixincl.c
+
+fixinc.sh: $(src_dir)/fixinc.sh
+	cp -t . $(src_dir)/fixinc.sh
+	chmod +x fixinc.sh
