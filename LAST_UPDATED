@@ -1,1 +1,4 @@
-Obtained from SVN: tags/gcc_4_6_4_release revision 197895
++ obtained gcc-4.6.4.tar.bz2 from upstream website;
++ verified gcc-4.6.4.tar.bz2.sig;
++ imported gcc-4.6.4 source tree from verified upstream tarball;
++ finished setting up the cbb port of gcc-4.6.4.
