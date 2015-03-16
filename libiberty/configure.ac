@@ -1,5 +1,12 @@
 dnl Process this file with autoconf to produce a configure script
 
+
+# cbb: modern system defaults
+if [ x"$cbb_neutral_libiberty" = x]; then
+	cbb_neutral_libiberty=yes
+fi
+
+
 AC_PREREQ(2.64)
 AC_INIT
 AC_CONFIG_SRCDIR([xmalloc.c])

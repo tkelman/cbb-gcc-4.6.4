@@ -122,7 +122,7 @@ COMPILE.c = $(CC) -c @DEFS@ $(CFLAGS) $(CPPFLAGS) -I. -I$(INCDIR) $(HDEFINES) @a
 # (alphabetical), and add them to REQUIRED_OFILES, or
 # CONFIGURED_OFILES and funcs in configure.ac.  Also run "make maint-deps"
 # to build the new rules.
-CFILES = alloca.c argv.c asprintf.c atexit.c				\
+CFILES = neutral.c alloca.c argv.c asprintf.c atexit.c			\
 	basename.c bcmp.c bcopy.c bsearch.c bzero.c			\
 	calloc.c choose-temp.c clock.c concat.c cp-demangle.c		\
 	 cp-demint.c cplus-dem.c crc32.c				\
@@ -161,7 +161,7 @@ CFILES = alloca.c argv.c asprintf.c atexit.c				\
 
 # These are always included in the library.  The first four are listed
 # first and by compile time to optimize parallel builds.
-REQUIRED_OFILES =							\
+REQUIRED_OFILES = ./neutral.$(objext)					\
 	./regex.$(objext) ./cplus-dem.$(objext) ./cp-demangle.$(objext) \
 	./md5.$(objext) ./sha1.$(objext) ./alloca.$(objext)		\
 	./argv.$(objext)						\
@@ -590,7 +590,7 @@ $(CONFIGURED_OFILES): stamp-picdir
 
 ./cp-demangle.$(objext): $(srcdir)/cp-demangle.c config.h $(INCDIR)/ansidecl.h \
 	$(srcdir)/cp-demangle.h $(INCDIR)/demangle.h \
-	$(INCDIR)/dyn-string.h $(INCDIR)/getopt.h $(INCDIR)/libiberty.h
+	$(INCDIR)/dyn-string.h $(INCDIR)/libiberty.h
 	if [ x"$(PICFLAG)" != x ]; then \
 	  $(COMPILE.c) $(PICFLAG) $(srcdir)/cp-demangle.c -o pic/$@; \
 	else true; fi
@@ -680,14 +680,13 @@ $(CONFIGURED_OFILES): stamp-picdir
 	else true; fi
 	$(COMPILE.c) $(srcdir)/getcwd.c $(OUTPUT_OPTION)
 
-./getopt.$(objext): $(srcdir)/getopt.c config.h $(INCDIR)/ansidecl.h \
-	$(INCDIR)/getopt.h
+./getopt.$(objext): $(srcdir)/getopt.c config.h $(INCDIR)/ansidecl.h
 	if [ x"$(PICFLAG)" != x ]; then \
 	  $(COMPILE.c) $(PICFLAG) $(srcdir)/getopt.c -o pic/$@; \
 	else true; fi
 	$(COMPILE.c) $(srcdir)/getopt.c $(OUTPUT_OPTION)
 
-./getopt1.$(objext): $(srcdir)/getopt1.c config.h $(INCDIR)/getopt.h
+./getopt1.$(objext): $(srcdir)/getopt1.c config.h
 	if [ x"$(PICFLAG)" != x ]; then \
 	  $(COMPILE.c) $(PICFLAG) $(srcdir)/getopt1.c -o pic/$@; \
 	else true; fi
@@ -1240,3 +1239,9 @@ $(CONFIGURED_OFILES): stamp-picdir
 	else true; fi
 	$(COMPILE.c) $(srcdir)/xstrndup.c $(OUTPUT_OPTION)
 
+
+./neutral.$(objext): $(srcdir)/neutral.c
+	if [ x"$(PICFLAG)" != x ]; then \
+	  $(COMPILE.c) $(PICFLAG) $(srcdir)/neutral.c -o pic/$@; \
+	else true; fi
+	$(COMPILE.c) $(srcdir)/neutral.c $(OUTPUT_OPTION)
