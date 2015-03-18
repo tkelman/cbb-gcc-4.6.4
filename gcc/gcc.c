@@ -3641,6 +3641,9 @@ process_command (unsigned int decoded_options_count,
 		  PREFIX_PRIORITY_LAST, 0, 0);
     }
 
+	add_sysrooted_prefix (&startfile_prefixes, "/lib/", "GCC",
+		PREFIX_PRIORITY_LAST, 0, 0);
+
   /* COMPILER_PATH and LIBRARY_PATH have values
      that are lists of directory names with colons.  */
 
