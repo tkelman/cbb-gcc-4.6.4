@@ -69,56 +69,9 @@ along with GCC; see the file COPYING3.  If not see
 #undef WCHAR_TYPE_SIZE
 #define WCHAR_TYPE_SIZE BITS_PER_WORD
     
-#define TARGET_OS_CPP_BUILTINS()		\
-  do						\
-    {						\
-	LINUX_TARGET_OS_CPP_BUILTINS();		\
-    }						\
-  while (0)
-
-#undef CPP_SPEC
-#define CPP_SPEC "%{posix:-D_POSIX_SOURCE} %{pthread:-D_REENTRANT}"
-
-#undef CC1_SPEC
-#define CC1_SPEC "%(cc1_cpu) %{profile:-p}"
-
-/* Provide a LINK_SPEC appropriate for Linux.  Here we provide support
-   for the special GCC options -static and -shared, which allow us to
-   link things in one of these three modes by applying the appropriate
-   combinations of options at link-time.
-
-   When the -shared link option is used a final link is not being
-   done.  */
-
-/* These macros may be overridden in k*bsd-gnu.h and i386/k*bsd-gnu.h. */
-#define LINK_EMULATION "elf_i386"
-#define GLIBC_DYNAMIC_LINKER "/lib/ld-linux.so.2"
-
 #undef  ASM_SPEC
 #define ASM_SPEC \
   "--32 %{!mno-sse2avx:%{mavx:-msse2avx}} %{msse2avx:%{!mavx:-msse2avx}}"
-
-#undef  SUBTARGET_EXTRA_SPECS
-#define SUBTARGET_EXTRA_SPECS \
-  { "link_emulation", LINK_EMULATION },\
-  { "dynamic_linker", LINUX_DYNAMIC_LINKER }
-
-#undef	LINK_SPEC
-#define LINK_SPEC "-m %(link_emulation) %{shared:-shared} \
-  %{!shared: \
-    %{!static: \
-      %{rdynamic:-export-dynamic} \
-      -dynamic-linker %(dynamic_linker)} \
-      %{static:-static}}"
-
-/* Similar to standard Linux, but adding -ffast-math support.  */
-#undef  ENDFILE_SPEC
-#define ENDFILE_SPEC \
-  "%{Ofast|ffast-math|funsafe-math-optimizations:crtfastmath.o%s} \
-   %{mpc32:crtprec32.o%s} \
-   %{mpc64:crtprec64.o%s} \
-   %{mpc80:crtprec80.o%s} \
-   %{shared|pie:crtendS.o%s;:crtend.o%s} crtn.o%s"
 
 /* A C statement (sans semicolon) to output to the stdio stream
    FILE the assembler definition of uninitialized global DECL named
