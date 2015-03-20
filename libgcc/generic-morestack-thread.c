@@ -40,17 +40,9 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 
 #include "generic-morestack.h"
 
-/* We declare the pthread functions we need as weak, so that
-   libgcc_s.so does not need to be linked against -lpthread.  */
-
-extern int pthread_once (pthread_once_t *, void (*) (void))
-  __attribute__ ((weak));
-
-extern int pthread_key_create (pthread_key_t *, void (*) (void *))
-  __attribute__ ((weak));
-
-extern int pthread_setspecific (pthread_key_t, const void *)
-  __attribute__ ((weak));
+extern int pthread_once (pthread_once_t *, void (*) (void));
+extern int pthread_key_create (pthread_key_t *, void (*) (void *));
+extern int pthread_setspecific (pthread_key_t, const void *);
 
 /* The key for the list of stack segments to free when the thread
    exits.  This is created by pthread_key_create.  */
@@ -134,8 +126,7 @@ int __wrap_pthread_create (pthread_t *, const pthread_attr_t *,
   __attribute__ ((visibility ("hidden")));
 
 extern int __real_pthread_create (pthread_t *, const pthread_attr_t *,
-				  void *(*start_routine) (void *), void *)
-  __attribute__ ((weak));
+				  void *(*start_routine) (void *), void *);
 
 int
 __wrap_pthread_create (pthread_t *tid, const pthread_attr_t *attr,

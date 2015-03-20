@@ -607,8 +607,7 @@ __generic_releasestack (size_t *pavailable)
    try to invoke a signal handler which itself wants to split the
    stack.  */
 
-extern int pthread_sigmask (int, const sigset_t *, sigset_t *)
-  __attribute__ ((weak));
+extern int pthread_sigmask (int, const sigset_t *, sigset_t *);
 
 void
 __morestack_block_signals (void)
