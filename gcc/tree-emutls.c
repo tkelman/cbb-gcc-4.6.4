@@ -257,6 +257,10 @@ get_emutls_init_templ_addr (tree decl)
 			targetm.emutls.tmpl_section);
     }
 
+  #ifdef TARGET_EMUTLS_VAR_SECTION_EMUTLS
+  DECL_SECTION_NAME (to) = build_string(strlen(".emutlst"),".emutlst");
+  #endif
+
   /* Create varpool node for the new variable and finalize it if it is
      not external one.  */
   if (DECL_EXTERNAL (to))
@@ -315,6 +319,10 @@ new_emutls_decl (tree decl)
         = build_string (strlen (targetm.emutls.tmpl_section),
 			targetm.emutls.tmpl_section);
     }
+
+  #ifdef TARGET_EMUTLS_VAR_SECTION_EMUTLS
+  DECL_SECTION_NAME (to) = build_string(strlen(".emutlsv"),".emutlsv");
+  #endif
 
   /* If this variable is defined locally, then we need to initialize the
      control structure with size and alignment information.  Initialization

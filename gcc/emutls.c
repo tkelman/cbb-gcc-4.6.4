@@ -29,6 +29,8 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #include "tm.h"
 #include "gthr.h"
 
+#ifndef EMUTLS_PROVIDED_BY_PLATFORM
+
 typedef unsigned int word __attribute__((mode(word)));
 typedef unsigned int pointer __attribute__((mode(pointer)));
 
@@ -203,3 +205,5 @@ __emutls_register_common (struct __emutls_object *obj,
   if (templ && size == obj->size)
     obj->templ = templ;
 }
+
+#endif /* EMUTLS_PROVIDED_BY_PLATFORM */
