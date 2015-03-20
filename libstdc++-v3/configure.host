@@ -241,7 +241,7 @@ case "${host_os}" in
       os_include_dir="os/uclibc"
     elif [ "$bionic" = "yes" ]; then
       os_include_dir="os/bionic"
-    else
+    elif [ "$glibc" = "yes" ]; then
       os_include_dir="os/gnu-linux"
     fi
     ;;
@@ -292,6 +292,10 @@ case "${host_os}" in
     ;;
 esac
 
+# os_include_dir: generic fallback
+if [ x"$os_include_dir" = x ]; then
+	os_include_dir="os/generic"
+fi
 
 # Set any OS-dependent and CPU-dependent bits.
 # THIS TABLE IS SORTED.  KEEP IT THAT WAY.
