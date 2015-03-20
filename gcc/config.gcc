@@ -184,6 +184,12 @@
 #  gnu_ld		Set to yes or no depending on whether the target
 #			system normally uses GNU ld.
 
+
+# cbb: modern system defaults
+if [ x"$enable_secureplt" = x]; then
+	enable_secureplt=yes
+fi
+
 out_file=
 tmake_file=
 extra_headers=
