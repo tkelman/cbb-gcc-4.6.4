@@ -1,14 +1,18 @@
 #ifdef SHARED
+#ifndef __MIDIPIX
 #define __lttf2 __lttf2_shared
+#endif
 #endif
 
 #include "config/soft-fp/letf2.c"
 
 #ifdef SHARED
+#ifndef __MIDIPIX
 #undef __lttf2
 strong_alias (__lttf2_shared, __lttf2_compat);
+#endif
 
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(__MIDIPIX)
 asm (".symver __lttf2_compat,__lttf2@GCC_3.0");
 asm (".symver __lttf2_shared,__lttf2@@GCC_4.3.0");
 #endif
