@@ -1,0 +1,70 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                                                           ;;
+;;  midipix target directives                                                ;;
+;;                                                                           ;;
+;;  Copyright (C)  2014,2015  Z. Gilboa                                      ;;
+;;                                                                           ;;
+;;  This program is free software: you can redistribute it and/or modify     ;;
+;;  it under the terms of the GNU General Public License as published by     ;;
+;;  the Free Software Foundation, either version 3 of the License, or        ;;
+;;  (at your option) any later version.                                      ;;
+;;                                                                           ;;
+;;  This program is distributed in the hope that it will be useful,          ;;
+;;  but WITHOUT ANY WARRANTY; without even the implied warranty of           ;;
+;;  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the             ;;
+;;  GNU General Public License for more details.                             ;;
+;;                                                                           ;;
+;;  You should have received a copy of the GNU General Public License        ;;
+;;  along with this program. If not, see <http://www.gnu.org/licenses/>.     ;;
+;;                                                                           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+posix
+Target
+use interfaces from the posix namespace
+
+mposix
+Target
+always join or create a posix session
+
+mout-implib
+Target
+upon linking the dynamic library foo.so, generate an accompanying import library foo.lib.a
+
+moutput-def
+Target
+upon linking the dynamic library foo.so, generate a corresponding symbol definition file foo.so.def
+
+mntapi
+Target
+operate in a free-standing Native API environment
+
+mtty-console
+Target
+if started by a non-posix parent, create a new instance of /dev/ttydbg, and make that instance the controlling terminal of the current process
+
+mldso
+Target
+use a dynamic loader
+
+mldso-absolute-path
+Target
+use the dynamic loader located at an application-defined absolute path
+
+mldso-default-path
+Target
+use the dynamic loader located at C:\\midipix\\lib
+
+mldso-app-dir-only
+Target
+use the dynamic loader found in the same physical directory as the current process
+
+mldso-root-relative
+Target
+use the dynamic loader found in /lib under a root directory relative to the physical location of the current process
+
+mldso-kernel-driver
+Target
+load dynamic libraries via calls to a custom ldso kernel driver
+
+; Retain blank line above

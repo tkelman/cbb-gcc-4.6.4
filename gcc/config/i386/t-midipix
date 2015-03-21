@@ -1,0 +1,103 @@
+###############################################################################
+##                                                                           ##
+##  midipix target-specific build recipes                                    ##
+##                                                                           ##
+##  Copyright (C)  2014,2015  Z. Gilboa                                      ##
+##                                                                           ##
+##  This program is free software: you can redistribute it and/or modify     ##
+##  it under the terms of the GNU General Public License as published by     ##
+##  the Free Software Foundation, either version 3 of the License, or        ##
+##  (at your option) any later version.                                      ##
+##                                                                           ##
+##  This program is distributed in the hope that it will be useful,          ##
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of           ##
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the             ##
+##  GNU General Public License for more details.                             ##
+##                                                                           ##
+##  You should have received a copy of the GNU General Public License        ##
+##  along with this program. If not, see <http://www.gnu.org/licenses/>.     ##
+##                                                                           ##
+###############################################################################
+
+
+midipix_winnt_common.o: s-output $(srcdir)/config/i386/winnt.c \
+	$(CONFIG_H) $(SYSTEM_H) coretypes.h \
+	$(TM_H) $(RTL_H) $(REGS_H) hard-reg-set.h output.h $(TREE_H) flags.h \
+	$(TM_P_H) $(HASHTAB_H) $(GGC_H) $(LTO_STREAMER_H)
+	$(COMPILER) -c $(ALL_COMPILERFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) \
+	--include=$(srcdir)/config/i386/midipix_winnt_common.h \
+	$(srcdir)/config/i386/winnt.c -o midipix_winnt_common.o
+
+
+midipix_winnt_cxx.o: $(srcdir)/config/i386/winnt-cxx.c \
+	$(CONFIG_H) $(SYSTEM_H) coretypes.h \
+	$(TM_H) $(TREE_H) flags.h \
+	$(TM_P_H) $(HASHTAB_H) $(GGC_H)
+	$(COMPILER) -c $(ALL_COMPILERFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) \
+	--include=$(srcdir)/config/i386/midipix_winnt_common.h \
+	$(srcdir)/config/i386/winnt-cxx.c -o $@
+
+
+midipix_winnt_stubs.o: $(srcdir)/config/i386/winnt-stubs.c \
+	$(CONFIG_H) $(SYSTEM_H) coretypes.h \
+	$(TM_H) $(RTL_H) $(REGS_H) hard-reg-set.h output.h $(TREE_H) flags.h \
+	$(TM_P_H) $(HASHTAB_H) $(GGC_H)
+	$(COMPILER) -c $(ALL_COMPILERFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) \
+	$(srcdir)/config/i386/winnt-stubs.c -o $@
+
+
+midipix.o: $(srcdir)/config/i386/midipix.c coretypes.h
+	$(COMPILER) -c $(ALL_COMPILERFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) \
+	$(srcdir)/config/i386/midipix.c -o $@
+
+STMP_FIXINC		= stmp-fixinc
+LIMITS_H_TEST		= true
+CUSTOM_CRTSTUFF		= yes
+
+SHLIB_EXT		= .so
+SHLIB_IMPLIB		= @shlib_base_name@.lib.a
+SHLIB_SOVERSION		= 1
+SHLIB_SONAME		= @shlib_base_name@$(EH_MODEL).so
+SHLIB_MAP		= @shlib_map_file@
+SHLIB_OBJS		= @shlib_objs@
+SHLIB_DIR		= @multilib_dir@
+SHLIB_SLIBDIR_QUAL	= @shlib_slibdir_qual@
+SHLIB_MKMAP		= $(srcdir)/mkmap-flat.awk
+SHLIB_MKMAP_OPTS	= -v pe_dll=libgcc_s$(EH_MODEL).so
+SHLIB_MAPFILES		= $(srcdir)/libgcc-std.ver
+
+
+SHLIB_LINK = $(GCC_FOR_TARGET) \
+		$(LIBGCC2_CFLAGS) \
+		-shared -mout-implib \
+		-nodefaultlibs \
+		-o $(SHLIB_DIR)/$(SHLIB_SONAME) \
+		$(SHLIB_OBJS) \
+		--sysroot=$$(cbb_sysroot_for_libgcc)
+
+
+SHLIB_INSTALL = \
+	$$(mkinstalldirs) \
+		$$(DESTDIR)$$(SHLIB_DLLDIR) \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL); \
+	$(INSTALL) \
+		$(SHLIB_DIR)/$(SHLIB_SONAME) \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/$(SHLIB_SONAME); \
+	$(INSTALL_DATA) \
+		$(SHLIB_DIR)/$(SHLIB_IMPLIB) \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/$(SHLIB_IMPLIB); \
+	$(INSTALL_DATA) \
+		$(SHLIB_DIR)/crtbegin.o \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/crtbegin.o; \
+	$(INSTALL_DATA) \
+		$(SHLIB_DIR)/crtbeginS.o \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/crtbeginS.o; \
+	$(INSTALL_DATA) \
+		$(SHLIB_DIR)/crtbeginT.o \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/crtbeginT.o; \
+	$(INSTALL_DATA) \
+		$(SHLIB_DIR)/crtend.o \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/crtend.o; \
+	$(INSTALL_DATA) \
+		$(SHLIB_DIR)/crtendS.o \
+		$$(DESTDIR)$$(slibdir)$(SHLIB_SLIBDIR_QUAL)/crtendS.o;
