@@ -1,0 +1,44 @@
+###############################################################################
+##                                                                           ##
+##  midipix target-specific build recipes for libgcc                         ##
+##                                                                           ##
+##  Copyright (C)  2014,2015  Z. Gilboa                                      ##
+##                                                                           ##
+##  This program is free software: you can redistribute it and/or modify     ##
+##  it under the terms of the GNU General Public License as published by     ##
+##  the Free Software Foundation, either version 3 of the License, or        ##
+##  (at your option) any later version.                                      ##
+##                                                                           ##
+##  This program is distributed in the hope that it will be useful,          ##
+##  but WITHOUT ANY WARRANTY; without even the implied warranty of           ##
+##  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the             ##
+##  GNU General Public License for more details.                             ##
+##                                                                           ##
+##  You should have received a copy of the GNU General Public License        ##
+##  along with this program. If not, see <http://www.gnu.org/licenses/>.     ##
+##                                                                           ##
+###############################################################################
+
+CUSTOM_CRTSTUFF := yes
+
+libgcc-crt-objects = midipix_unwind$(objext) \
+		crtbegin$(objext) crtbeginS$(objext) crtbeginT$(objext) \
+		crtend$(objext) crtendS$(objext)
+
+crtbegin$(objext): $(gcc_srcdir)/config/i386/midipix_crtbegin.c
+	$(GCC_FOR_TARGET) -DLIBGCC_CRTBEGIN -c $(gcc_srcdir)/config/i386/midipix_crtbegin.c -o $@
+
+crtbeginS$(objext): $(gcc_srcdir)/config/i386/midipix_crtbegin.c
+	$(GCC_FOR_TARGET) -DLIBGCC_CRTBEGIN_S -c $(gcc_srcdir)/config/i386/midipix_crtbegin.c -o $@
+
+crtbeginT$(objext): $(gcc_srcdir)/config/i386/midipix_crtbegin.c
+	$(GCC_FOR_TARGET) -DLIBGCC_CRTBEGIN_T -c $(gcc_srcdir)/config/i386/midipix_crtbegin.c -o $@
+
+crtend$(objext): $(gcc_srcdir)/config/i386/midipix_crtend.c
+	$(GCC_FOR_TARGET) -DLIBGCC_CRTEND -c $(gcc_srcdir)/config/i386/midipix_crtend.c -o $@
+
+crtendS$(objext): $(gcc_srcdir)/config/i386/midipix_crtend.c
+	$(GCC_FOR_TARGET) -DLIBGCC_CRTEND_S -c $(gcc_srcdir)/config/i386/midipix_crtend.c -o $@
+
+midipix_unwind$(objext): $(gcc_srcdir)/config/i386/midipix_unwind.c
+	$(GCC_FOR_TARGET) -c $(gcc_srcdir)/config/i386/midipix_unwind.c -o $@
