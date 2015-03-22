@@ -63479,6 +63479,10 @@ $as_echo "$ac_ld_relro" >&6; }
     $as_echo "#define HAVE_TANHF 1" >>confdefs.h
 
     ;;
+
+  *midipix*)
+    ;;
+
   *)
     as_fn_error "No support for this host/target combination." "$LINENO" 5
    ;;

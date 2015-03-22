@@ -756,6 +756,14 @@ case $basic_machine in
         microblaze)
 		basic_machine=microblaze-xilinx
 		;;
+	midipix32)
+		basic_machine=i386-pc
+		os=-midipix32
+		;;
+	midipix64)
+		basic_machine=x86_64-pc
+		os=-midipix64
+		;;
 	mingw32)
 		basic_machine=i386-pc
 		os=-mingw32
@@ -1317,7 +1325,7 @@ case $os in
 	      | -os2* | -vos* | -palmos* | -uclinux* | -nucleus* \
 	      | -morphos* | -superux* | -rtmk* | -rtmk-nova* | -windiss* \
 	      | -powermax* | -dnix* | -nx6 | -nx7 | -sei* | -dragonfly* \
-	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es*)
+	      | -skyos* | -haiku* | -rdos* | -toppers* | -drops* | -es* | -midipix*)
 	# Remember, each alternative MUST END IN *, to match a version number.
 		;;
 	-qnx*)

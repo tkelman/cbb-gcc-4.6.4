@@ -2793,6 +2793,36 @@ m32c-*-elf*)
 	c_target_objs="m32c-pragma.o"
 	cxx_target_objs="m32c-pragma.o"
  	;;
+*-*-midipix*)
+	native_system_header_dir="/include"
+	local_includedir="/local/include"
+
+	xm_file=
+	tm_file="vxworks-dummy.h i386/biarch64.h i386/i386.h i386/unix.h i386/bsd.h i386/gas.h dbxcoff.h i386/midipix.h glibc-stdint.h"
+
+	xm_defines="HAVE_GAS_ALIGNED_COMM=1 __TARGET_SYMVER_REJECTED=1"
+	tm_defines="HAVE_GAS_ALIGNED_COMM=1 __TARGET_SYMVER_REJECTED=1"
+
+	tmake_file="i386/t-midipix t-slibgcc i386/t-gmm_malloc i386/t-i386 i386/t-fprules-softfp soft-fp/t-softfp"
+
+	target_gtfiles="\$(srcdir)/config/i386/winnt.c \$(srcdir)/config/i386/midipix.c"
+
+	extra_objs="midipix_winnt_common.o midipix_winnt_stubs.o midipix.o"
+	extra_options="fused-madd.opt i386/i386.opt i386/midipix.opt"
+
+	c_target_objs="i386-c.o"
+	cxx_target_objs="i386-c.o midipix_winnt_cxx.o"
+
+	gas=yes
+	gnu_as=yes
+	gnu_ld=yes
+
+	thread_file=posix
+	default_use_cxa_atexit=yes
+
+	use_gcc_tgmath=no
+	use_gcc_stdint=wrap
+	;;
 *)
 	echo "*** Configuration ${target} not supported" 1>&2
 	exit 1
