@@ -469,7 +469,7 @@ const char *host_detect_local_cpu (int argc, const char **argv)
 #define XSTATE_SSE			0x2
 #define XSTATE_YMM			0x4
   if (has_osxsave)
-    asm (".byte 0x0f; .byte 0x01; .byte 0xd0"
+    __asm__ (".byte 0x0f; .byte 0x01; .byte 0xd0"
 	 : "=a" (eax), "=d" (edx)
 	 : "c" (XCR_XFEATURE_ENABLED_MASK));
 
