@@ -47,6 +47,9 @@ target_noncanonical = @target_noncanonical@
 # The rules for compiling them should be in the t-* file for the machine.
 EXTRA_PARTS = @extra_parts@
 
+# compiler building blocks variables
+cbb_sysroot_for_libgcc = @cbb_sysroot_for_libgcc@
+
 # Multilib support variables.
 MULTISRCTOP =
 MULTIBUILDTOP =
